@@ -2,8 +2,8 @@
 $date = (Get-Date).ToString("ddMMyyyy")
 $fileName = "C:\temp\bkp" + $date + ".bak"
 
-<#Backup Database - Change BDNAME #>
-Backup-SqlDatabase -ServerInstance localhost\sqlexpress -Database BDNAME -BackupAction Database -BackupFile $fileName
+<#Backup Database - Change DBNAME #>
+Backup-SqlDatabase -ServerInstance localhost\sqlexpress -Database DBNAME -BackupAction Database -BackupFile $fileName
 
 <#Zip Backup File#>
 [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
@@ -13,7 +13,10 @@ $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
 $includebasedir = $false
 [System.IO.Compression.ZipFile]::CreateFromDirectory($src_folder,$destfile,$compressionLevel, $includebasedir )
  
-<#Send gmail - Check gmail config to allow send email#>
+<#
+Send gmail - Check gmail config to allow send email
+https://accounts.google.com/DisplayUnlockCaptcha
+#>
 $User = "email@gmail.com"
 $cred=New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, ("GMAILPASSWORD" | ConvertTo-SecureString -asPlainText -Force)
 $EmailTo = "email@gmail.com"
@@ -31,12 +34,5 @@ $SMTPClient.Send($SMTPMessage)
 <#Delete original backup file#>
 Remove-Item $fileName
 
-<#
-
-Create Windows Schedule Task
-
-powershell -File BackupAndSendEmail.ps1
-
-:)
-
-#>
+<#Create Windows Schedule Task
+powershell -File BackupAndSendEmail.ps1 :) #>
