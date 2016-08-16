@@ -2,7 +2,7 @@
 $date = (Get-Date).ToString("ddMMyyyy")
 $fileName = "C:\temp\bkp" + $date + ".bak"
 
-<#Backup Database #>
+<#Backup Database - Change BDNAME #>
 Backup-SqlDatabase -ServerInstance localhost\sqlexpress -Database BDNAME -BackupAction Database -BackupFile $fileName
 
 <#Zip Backup File#>
