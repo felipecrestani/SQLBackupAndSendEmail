@@ -1,3 +1,3 @@
-# SQL Backup And Send mail
+# SQL Backup And Send e-Mail
 
-Powershell script to backup SQL Database and send to e-mail 
+Powershell script to backup SQL Database and send to e-Mail 
